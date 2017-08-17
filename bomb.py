@@ -1,11 +1,44 @@
 class Bomb():
 	def __init__(self):
-		self._upperShape=["|","B","B","|"]
-		self._lowerShape=["|","B","B","|"]
+		self._positionX = -1
+		self._positionY = -1
+		self._prevX = -1
+		self._prevY = -1
+		self._time = 4
+		self._boundary = "|"
+		self._upperShape = [self._boundary,self._time,self._time,self._boundary]
+		self._lowerShape = [self._boundary,self._time,self._time,self._boundary]
 
 	def plant(self,hero,board):
-		for i in range(4):
-			board._board[hero._positionX+i][hero._positionY] = self._upperShape[i]
-		for i in range(4):
-			board._board[hero._positionX+i][hero._positionY+1] = self._lowerShape[i]
+		if(self._positionX == -1):
+			self._positionX = hero._positionX
+			self._positionY = hero._positionY
 
+	def blast(self,board,hero,villan,villan_cnt):
+		self._blastshape = "^"
+		self._prevX = self._positionX
+		self._prevY = self._positionY		
+		self._positionX = -1
+		self._positionY = -1
+		self._time = 4
+		for i in range(self._prevX-4,self._prevX+8):
+			if(board._board[i][self._prevY] != "#"):
+				board._board[i][self._prevY] = self._blastshape
+				board._board[i][self._prevY+1] = self._blastshape
+
+		for i in range(self._prevX,self._prevX+4):
+			if(board._board[i][self._prevY-2] != "#"):
+				board._board[i][self._prevY-2] = self._blastshape
+				board._board[i][self._prevY-1] = self._blastshape
+			
+			if(board._board[i][self._prevY+2] != "#"):
+				board._board[i][self._prevY+2] = self._blastshape
+				board._board[i][self._prevY+3] = self._blastshape
+		if(hero._positionX >= self._prevX -4 and hero._positionX < self._prevX +8) and (hero._positionY >= self._prevY -2 and hero._positionY < self._prevY +4):
+			hero.kill()
+
+		for i in range(villan_cnt):
+			if(villan[i]._positionX >= self._prevX -4 and villan[i]._positionX < self._prevX +8) and (villan[i]._positionY >= self._prevY -2 and villan[i]._positionY < self._prevY +4):
+				villan[i].kill(board,hero)
+
+				

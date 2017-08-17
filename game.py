@@ -1,4 +1,4 @@
-from random import randint
+import random
 import signal,copy,sys,time
 from board import *
 from player import *
@@ -6,6 +6,7 @@ from obstacle import *
 from getchunix import *
 from alarmexception import *
 from controls import *
+from bomb import *
 
 getch = GetchUnix()	
 
@@ -25,6 +26,7 @@ def input_to(timeout=1):
     return ''
 
 def main():
+	print("Press any key to start game")
 	villan_cnt = 5
 	villan = []
 	hero = Hero()
@@ -32,19 +34,28 @@ def main():
 	wall = Wall()
 	wall.fabricate(board_obj)
 	brick = []
-	brick_cnt = 16
+	bomb = Bomb()
+	brick_cnt = 35
 	for i in range(brick_cnt):
 		brick.append(Brick())
 		brick[i].fabricate(board_obj,wall)
 	for i in range (villan_cnt):
 		villan.append(Villan(board_obj,brick,wall))
 	
-	while(hero._lives and villan_cnt):
+	while(hero._lives):
 		
 		move = input_to()
-		controls(move,hero,board_obj)
+		controls(move,hero,board_obj,bomb)
+		board_obj.bombDraw(hero,bomb)
+		if(bomb._positionX != -1):
+			bomb._time -= 1
+			bomb._upperShape=[bomb._boundary,bomb._time,bomb._time,bomb._boundary]
+			bomb._lowerShape=[bomb._boundary,bomb._time,bomb._time,bomb._boundary]
+		if(bomb._time == -1):
+			bomb.blast(board_obj,hero,villan,villan_cnt)
+			blast = 1
 		for i in range (villan_cnt):
-			villan[i].motion(board_obj)
+			villan[i].motion(board_obj,bomb)
 		board_obj.playerDraw(hero)
 		board_obj.draw()
 		print("Score: " , hero._score , "  Lives: " , hero._lives , "  Level: 1")

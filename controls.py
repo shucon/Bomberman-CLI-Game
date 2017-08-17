@@ -1,25 +1,24 @@
 import sys
-from bomb import *
-def controls(move,hero,board):
 
-	if(move == 'w' and board._board[hero._positionX][hero._positionY-2] == board._freesymbol):
+def controls(move,hero,board,bomb):
+
+	if(move == 'w' and (board._board[hero._positionX][hero._positionY-2] == board._freesymbol or board._board[hero._positionX][hero._positionY-2] == bomb._boundary)):
 		hero.clr(board)
 		hero._positionY -= 2
 
-	if(move == 's' and board._board[hero._positionX][hero._positionY+2] == board._freesymbol):
+	if(move == 's' and (board._board[hero._positionX][hero._positionY+2] == board._freesymbol or board._board[hero._positionX][hero._positionY+2] == bomb._boundary)):
 		hero.clr(board)
 		hero._positionY += 2
 		
-	if(move == 'a' and board._board[hero._positionX-4][hero._positionY] == board._freesymbol):
+	if(move == 'a' and (board._board[hero._positionX-4][hero._positionY] == board._freesymbol or board._board[hero._positionX-4][hero._positionY] == bomb._boundary)):
 		hero.clr(board)
 		hero._positionX -= 4
 		
-	if(move == 'd' and board._board[hero._positionX+4][hero._positionY] == board._freesymbol):
+	if(move == 'd' and (board._board[hero._positionX+4][hero._positionY] == board._freesymbol or board._board[hero._positionX+4][hero._positionY] == bomb._boundary)):
 		hero.clr(board)
 		hero._positionX += 4
 	
 	if(move == 'x'):
-		bomb = Bomb()
 		bomb.plant(hero,board)
 
 	if (move == 'q'):

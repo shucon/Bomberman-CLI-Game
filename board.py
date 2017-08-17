@@ -36,9 +36,32 @@ class Board():
 		for i in range(4):
 			self._board[player._positionX+i][player._positionY+1] = player._lowerShape[i]
 
+	def bombDraw(self,player,bomb):
+		if(bomb._positionX != -1 and (player._positionX != bomb._positionX or player._positionY != bomb._positionY)):
+			for i in range(4):
+				self._board[bomb._positionX+i][bomb._positionY] = bomb._upperShape[i]
+				self._board[bomb._positionX+i][bomb._positionY+1] = bomb._lowerShape[i]
 
-# def main():
-# 	test = Board()
+		if(bomb._positionX == -1):
+			for i in range(4):
+				self._board[bomb._prevX+i][bomb._prevY] = self._freesymbol
+				self._board[bomb._prevX+i][bomb._prevY+1] = self._freesymbol
+			
+			# Restore blast shape
+			for i in range(bomb._prevX-4,bomb._prevX+8):
+				if(self._board[i][bomb._prevY] != "#"):
+					self._board[i][bomb._prevY] = self._freesymbol
+					self._board[i][bomb._prevY+1] = self._freesymbol
 
-# if __name__=="__main__":
-# 	main()
+			for i in range(bomb._prevX,bomb._prevX+4):
+				if(self._board[i][bomb._prevY-2] != "#"):
+					self._board[i][bomb._prevY-2] = self._freesymbol
+					self._board[i][bomb._prevY-1] = self._freesymbol
+				if(self._board[i][bomb._prevY+2] != "#"):
+					self._board[i][bomb._prevY+2] = self._freesymbol
+					self._board[i][bomb._prevY+3] = self._freesymbol
+			
+			bomb._prevX = -1
+			bomb._prevY = -1
+		
+
