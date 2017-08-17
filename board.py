@@ -7,6 +7,7 @@ class Board():
 		self._breadth = 34
 		self._length = 76
 		self._board = []
+		self._freesymbol=" "
 		for i in range(self._length):
 			self._board.append([])
 			for j in range(self._breadth):
@@ -16,7 +17,7 @@ class Board():
 					if j == 0 or j == 1 or j ==self._breadth-2  or j == self._breadth-1:
 						self._board[i].append("#")
 					else:
-						self._board[i].append(" ")
+						self._board[i].append(self._freesymbol)
 
 	def draw(self):
 		for j in range(self._breadth):
