@@ -36,8 +36,8 @@ class Board():
 		for i in range(4):
 			self._board[player._positionX+i][player._positionY+1] = player._lowerShape[i]
 
-	def bombDraw(self,player,bomb):
-		if(bomb._positionX != -1 and (player._positionX != bomb._positionX or player._positionY != bomb._positionY)):
+	def bombDraw(self,player,bomb,vill):
+		if(bomb._positionX != -1 and (player._positionX != bomb._positionX or player._positionY != bomb._positionY) and self._board[bomb._positionX][bomb._positionY] != vill[0]._upperShape[0]):
 			for i in range(4):
 				self._board[bomb._positionX+i][bomb._positionY] = bomb._upperShape[i]
 				self._board[bomb._positionX+i][bomb._positionY+1] = bomb._lowerShape[i]

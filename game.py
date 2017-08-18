@@ -27,7 +27,7 @@ def input_to(timeout=1):
 
 def main():
 	print("Press any key to start game")
-	villan_cnt = 5
+	villan_cnt = 2
 	villan = []
 	hero = Hero()
 	board_obj = Board()
@@ -46,7 +46,9 @@ def main():
 		
 		move = input_to()
 		controls(move,hero,board_obj,bomb)
-		board_obj.bombDraw(hero,bomb)
+		for i in range (villan_cnt):
+			villan[i].motion(board_obj,bomb,hero)
+		board_obj.bombDraw(hero,bomb,villan)
 		if(bomb._positionX != -1):
 			bomb._time -= 1
 			bomb._upperShape=[bomb._boundary,bomb._time,bomb._time,bomb._boundary]
@@ -54,8 +56,6 @@ def main():
 		if(bomb._time == -1):
 			bomb.blast(board_obj,hero,villan,villan_cnt)
 			blast = 1
-		for i in range (villan_cnt):
-			villan[i].motion(board_obj,bomb)
 		board_obj.playerDraw(hero)
 		board_obj.draw()
 		print("Score: " , hero._score , "  Lives: " , hero._lives , "  Level: 1")

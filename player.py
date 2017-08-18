@@ -15,7 +15,8 @@ class Hero():
 		for i in range(4):
 			Board._board[self._positionX+i][self._positionY+1] = " "
 
-	def kill(self):
+	def kill(self,board):
+		self.clr(board)
 		self._lives -= 1
 		self._positionX = 4
 		self._positionY = 2
@@ -39,7 +40,7 @@ class Villan(Hero):
 		self._status = 0
 		self.clr(board)
 
-	def motion(self,board,bomb):
+	def motion(self,board,bomb,hero):
 		# 0 -> UP 1-> DOWN 2 -> LEFT 3 -> RIGHT
 		if self._status == 0:
 			return
@@ -58,11 +59,14 @@ class Villan(Hero):
 			if(motion == 3):
 				checkY = self._positionY
 				checkX = self._positionX+4
-			if (board._board[checkX][checkY] == board._freesymbol or board._board[checkX][checkY] == bomb._boundary):
+			if (board._board[checkX][checkY] == board._freesymbol):
 				overlap = 0
 				self.clr(board)
 				self._positionX = checkX
 				self._positionY = checkY
+				if(self._positionX == hero._positionX and self._positionY == hero._positionY):
+					hero.kill(board)
+
 
 		board.playerDraw(self)
 		
