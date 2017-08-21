@@ -16,9 +16,13 @@ def alarmHandler(signum, frame):
 def input_to(timeout=1):
     signal.signal(signal.SIGALRM, alarmHandler)
     signal.alarm(timeout)
+    t0 = time.clock()
     try:
+        t1 = time.clock()
         text = getch()
         signal.alarm(0)
+        while(t1 - t0 < 1) :
+            t1 = time.clock()
         return text
     except AlarmException:
         print(end='')
@@ -27,37 +31,42 @@ def input_to(timeout=1):
 
 def main():
 	print("Press any key to start game")
-	villan_cnt = 2
-	villan = []
-	hero = Hero()
-	board_obj = Board()
-	wall = Wall()
-	wall.fabricate(board_obj)
-	brick = []
-	bomb = Bomb()
-	brick_cnt = 35
-	for i in range(brick_cnt):
-		brick.append(Brick())
-		brick[i].fabricate(board_obj,wall)
-	for i in range (villan_cnt):
-		villan.append(Villan(board_obj,brick,wall))
-	
-	while(hero._lives):
+	level = 1
+	score = 0
+	while(1):
+		villan = []
+		hero = Hero()
+		board_obj = Board()
+		wall = Wall()
+		wall.fabricate(board_obj)
+		brick = []
+		bomb = Bomb(level)
+		brick_cnt = 35 - 3 * level
+		for i in range(brick_cnt):
+			brick.append(Brick())
+			brick[i].fabricate(board_obj,wall)
+		for i in range (bomb._villan_cnt):
+			villan.append(Villan(board_obj,brick,wall))
 		
-		move = input_to()
-		controls(move,hero,board_obj,bomb)
-		for i in range (villan_cnt):
-			villan[i].motion(board_obj,bomb,hero)
-		board_obj.bombDraw(hero,bomb,villan)
-		if(bomb._positionX != -1):
-			bomb._time -= 1
-			bomb._upperShape=[bomb._boundary,bomb._time,bomb._time,bomb._boundary]
-			bomb._lowerShape=[bomb._boundary,bomb._time,bomb._time,bomb._boundary]
-		if(bomb._time == -1):
-			bomb.blast(board_obj,hero,villan,villan_cnt)
-			blast = 1
-		board_obj.playerDraw(hero)
-		board_obj.draw()
-		print("Score: " , hero._score , "  Lives: " , hero._lives , "  Level: 1")
+		while(hero._lives and bomb._villan_cnt):
+			
+			move = input_to()
+			controls(move,hero,board_obj,bomb)
+			for i in range (bomb._villan_cnt):
+				villan[i].motion(board_obj,bomb,hero)
+			board_obj.bombDraw(hero,bomb,villan)
+			if(bomb._positionX != -1):
+				bomb._time -= 1
+				bomb._upperShape=[bomb._boundary,bomb._time,bomb._time,bomb._boundary]
+				bomb._lowerShape=[bomb._boundary,bomb._time,bomb._time,bomb._boundary]
+			if(bomb._time == -1):
+				bomb.blast(board_obj,hero,villan)
+				blast = 1
+			board_obj.playerDraw(hero)
+			board_obj.draw()
+			total_score = score + hero._score
+			print("Score: " , total_score , "  Lives: " , hero._lives , "  Level: " , level)
+		level += 1
+		score += hero._score
 if __name__ == '__main__':
 	main()

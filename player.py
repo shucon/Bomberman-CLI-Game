@@ -45,8 +45,9 @@ class Villan(Hero):
 		if self._status == 0:
 			return
 		overlap = 1
+		motion = random.randrange(0,4)
+		count = 0
 		while (overlap):
-			motion = random.randrange(0,4)
 			if(motion == 0):
 				checkY = self._positionY-2
 				checkX = self._positionX
@@ -59,14 +60,17 @@ class Villan(Hero):
 			if(motion == 3):
 				checkY = self._positionY
 				checkX = self._positionX+4
-			if (board._board[checkX][checkY] == board._freesymbol):
+			if (board._board[checkX][checkY] == board._freesymbol or board._board[checkX][checkY] == "["):
 				overlap = 0
 				self.clr(board)
 				self._positionX = checkX
 				self._positionY = checkY
 				if(self._positionX == hero._positionX and self._positionY == hero._positionY):
 					hero.kill(board)
-
+			motion = (motion + 1) % 4
+			count += 4
+			if (count > 5):
+				break
 
 		board.playerDraw(self)
 		

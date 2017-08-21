@@ -1,6 +1,6 @@
 from random import randrange
 from obstacle import *
-
+from termcolor import colored
 class Board():
 	"""Manage and print game"""
 	def __init__(self):
@@ -23,7 +23,16 @@ class Board():
 		for j in range(self._breadth):
 			print()
 			for i in range(self._length):
-				print(self._board[i][j],end='')
+				if(self._board[i][j] == "/"):
+					print(colored(self._board[i][j],'yellow',attrs=['bold']),end='')
+				elif(self._board[i][j] == "[" or self._board[i][j] == "]" or self._board[i][j] == "^"):
+					print(colored(self._board[i][j],'cyan',attrs=['bold']),end='')
+				elif(self._board[i][j] == "O" or self._board[i][j] == "}" or self._board[i][j] == "{"):
+					print(colored(self._board[i][j],'magenta',attrs=['bold']),end='')					
+				elif(self._board[i][j] == "0" or self._board[i][j] == "1" or self._board[i][j] == "2" or self._board[i][j] == "3" or self._board[i][j] == "|"):
+					print(colored(self._board[i][j],'red',attrs=['bold']),end='')					
+				else:
+					print(self._board[i][j],end='')					
 		print()
 
 	def random_wall(self):
