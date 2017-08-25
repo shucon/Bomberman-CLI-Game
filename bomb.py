@@ -1,3 +1,5 @@
+import time
+
 class Bomb():
 	def __init__(self,level):
 		self._positionX = -1
@@ -9,7 +11,7 @@ class Bomb():
 		self._upperShape = [self._boundary,self._time,self._time,self._boundary]
 		self._lowerShape = [self._boundary,self._time,self._time,self._boundary]
 		self._villan_cnt = 3 * level
-
+		self._plant_time = time.time()
 	def plant(self,hero,board):
 		if(self._positionX == -1):
 			self._positionX = hero._positionX
