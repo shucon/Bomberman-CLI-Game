@@ -1,7 +1,8 @@
+'''Player Module'''
 import random
 
 
-class Hero():
+class Hero(object):
     """docstring for Hero"""
 
     def __init__(self):
@@ -13,12 +14,14 @@ class Hero():
         self.score = 0
 
     def clr(self, Board):
+        '''Clear Player'''
         for i in range(4):
             Board.board[self.position_x + i][self.position_y] = " "
         for i in range(4):
             Board.board[self.position_x + i][self.position_y + 1] = " "
 
     def kill(self, board):
+        '''Kill Player'''
         self.clr(board)
         self.lives -= 1
         self.position_x = 4
@@ -28,7 +31,7 @@ class Hero():
 class Villan(Hero):
     """docstring for Villan"""
 
-    def __init__(self, board, brick, wall):
+    def __init__(self, board):
         super(Villan, self).__init__()
         overlap = 1
         while overlap:
@@ -41,11 +44,13 @@ class Villan(Hero):
         self.status = 1  # 1 -> Life   0 -> Death
 
     def kill(self, board, hero):
+        '''Kill Villan'''
         hero.score += 100
         self.status = 0
         self.clr(board)
 
-    def motion(self, board, bomb, hero):
+    def motion(self, board, hero):
+        '''Villan Motion'''
         # 0 -> UP 1-> DOWN 2 -> LEFT 3 -> RIGHT
         if self.status == 0:
             return

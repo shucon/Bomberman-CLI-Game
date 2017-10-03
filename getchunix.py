@@ -1,24 +1,21 @@
+"""file name getchunix"""
 from __future__ import print_function
-import signal
-import copy
-import sys
-import time
-from random import randint
 
-
-class GetchUnix:
+class GetchUnix(object):
+    """class getchunix"""
     def __init__(self):
-        import tty
+        """class init"""
 
     def __call__(self):
+        """class call"""
         import sys
         import tty
         import termios
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
+        fd_var = sys.stdin.fileno()
+        old_settings = termios.tcgetattr(fd_var)
         try:
             tty.setraw(sys.stdin.fileno())
-            ch = sys.stdin.read(1)
+            ch_var = sys.stdin.read(1)
         finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-        return ch
+            termios.tcsetattr(fd_var, termios.TCSADRAIN, old_settings)
+        return ch_var

@@ -2,7 +2,8 @@
 import time
 
 
-class Bomb():
+class Bomb(object):
+    '''Bomb class'''
     def __init__(self, level):
         self.position_x = -1
         self.position_y = -1
@@ -24,11 +25,13 @@ class Bomb():
         self.plant_time = time.time()
 
     def plant(self, hero):
+        '''bomb plant'''
         if self.position_x == -1:
             self.position_x = hero.position_x
             self.position_y = hero.position_y
 
     def blast(self, board, hero, villan):
+        '''bomb blast'''
         self.blastshape = "^"
         self.prev_x = self.position_x
         self.prev_y = self.position_y

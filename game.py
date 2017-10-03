@@ -54,7 +54,7 @@ def main():
             brick[i].fabricate(board_obj, wall)
 
         for i in range(bomb.villan_cnt):
-            villan.append(Villan(board_obj, brick, wall))
+            villan.append(Villan(board_obj))
 
         while hero.lives and bomb.villan_cnt:
 
@@ -64,7 +64,7 @@ def main():
             if t1 - t0 > 1:
                 t0 = time.time()
                 for i in range(bomb.villan_cnt):
-                    villan[i].motion(board_obj, bomb, hero)
+                    villan[i].motion(board_obj, hero)
             board_obj.bombDraw(hero, bomb, villan)
             t2 = time.time()
             if t2 - bomb.plant_time > 1:

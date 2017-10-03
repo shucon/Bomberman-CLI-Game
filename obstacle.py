@@ -1,29 +1,31 @@
+'''obstacle module'''
 import random
 
 
-class Wall():
+class Wall(object):
+    '''Wall Class'''
     def __init__(self):
         self.symbol = "#"
 
     def fabricate(self, Board):
-
+        '''Wall fabricate'''
         for i in range(Board.length):
             for j in range(Board.breadth):
                 if (i %
-                    8 == 0 and j %
-                    4 == 0) or (i %
-                                8 == 1 and j %
-                                4 == 0) or (i %
-                                            8 == 2 and j %
-                                            4 == 0) or (i %
+                        8 == 0 and j %
+                        4 == 0) or (i %
+                                    8 == 1 and j %
+                                    4 == 0) or (i %
+                                                8 == 2 and j %
+                                                4 == 0) or (i %
                                                         8 == 3 and j %
                                                         4 == 0):
                     Board.board[i][j] = self.symbol
                 if (i %
-                    8 == 0 and j %
-                    4 == 1) or (i %
-                                8 == 1 and j %
-                                4 == 1) or (i %
+                        8 == 0 and j %
+                        4 == 1) or (i %
+                                    8 == 1 and j %
+                                    4 == 1) or (i %
                                             8 == 2 and j %
                                             4 == 1) or (i %
                                                         8 == 3 and j %
