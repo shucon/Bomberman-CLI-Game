@@ -61,21 +61,21 @@ def main():
             move = input_to()
             controls(move, hero, board_obj, bomb)
             t1 = time.time()
-            if(t1 - t0 > 1):
+            if t1 - t0 > 1:
                 t0 = time.time()
                 for i in range(bomb.villan_cnt):
                     villan[i].motion(board_obj, bomb, hero)
             board_obj.bombDraw(hero, bomb, villan)
             t2 = time.time()
-            if(t2 - bomb.plant_time > 1):
+            if t2 - bomb.plant_time > 1:
                 bomb.plant_time = time.time()
-                if(bomb.position_x != -1):
+                if bomb.position_x != -1:
                     bomb.time -= 1
                     bomb.uppershape = [
                         bomb.boundary, bomb.time, bomb.time, bomb.boundary]
                     bomb.lowershape = [
                         bomb.boundary, bomb.time, bomb.time, bomb.boundary]
-            if(bomb.time == -1):
+            if bomb.time == -1:
                 bomb.blast(board_obj, hero, villan)
                 blast = 1
             board_obj.playerDraw(hero)

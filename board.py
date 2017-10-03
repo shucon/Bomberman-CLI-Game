@@ -27,28 +27,28 @@ class Board():
         for j in range(self.breadth):
             print()
             for i in range(self.length):
-                if(self.board[i][j] == "/"):
+                if self.board[i][j] == "/":
                     print(
                         colored(
                             self.board[i][j],
                             'yellow',
                             attrs=['bold']),
                         end='')
-                elif(self.board[i][j] == "[" or self.board[i][j] == "]" or self.board[i][j] == "^"):
+                elif self.board[i][j] == "[" or self.board[i][j] == "]" or self.board[i][j] == "^":
                     print(
                         colored(
                             self.board[i][j],
                             'cyan',
                             attrs=['bold']),
                         end='')
-                elif(self.board[i][j] == "O" or self.board[i][j] == "}" or self.board[i][j] == "{"):
+                elif self.board[i][j] == "O" or self.board[i][j] == "}" or self.board[i][j] == "{":
                     print(
                         colored(
                             self.board[i][j],
                             'magenta',
                             attrs=['bold']),
                         end='')
-                elif(self.board[i][j] == "0" or self.board[i][j] == "1" or self.board[i][j] == "2" or self.board[i][j] == "3" or self.board[i][j] == "|"):
+                elif self.board[i][j] == "0" or self.board[i][j] == "1" or self.board[i][j] == "2" or self.board[i][j] == "3" or self.board[i][j] == "|":
                     print(
                         colored(
                             self.board[i][j],
@@ -73,7 +73,7 @@ class Board():
                            1] = player.lowershape[i]
 
     def bombDraw(self, player, bomb, vill):
-        if(bomb.position_x != -1 and (player.position_x != bomb.position_x or player.position_y != bomb.position_y) and self.board[bomb.position_x][bomb.position_y] != vill[0].uppershape[0]):
+        if bomb.position_x != -1 and (player.position_x != bomb.position_x or player.position_y != bomb.position_y) and self.board[bomb.position_x][bomb.position_y] != vill[0].uppershape[0]:
             for i in range(4):
                 self.board[bomb.position_x +
                             i][bomb.position_y] = bomb.uppershape[i]
@@ -81,7 +81,7 @@ class Board():
                             i][bomb.position_y +
                                1] = bomb.lowershape[i]
 
-        if(bomb.position_x == -1):
+        if bomb.position_x == -1:
             for i in range(4):
                 self.board[bomb.prevX + i][bomb.prevY] = self.freesymbol
                 self.board[bomb.prevX +
@@ -89,15 +89,15 @@ class Board():
 
             # Restore blast shape
             for i in range(bomb.prevX - 4, bomb.prevX + 8):
-                if(self.board[i][bomb.prevY] != "#"):
+                if self.board[i][bomb.prevY] != "#":
                     self.board[i][bomb.prevY] = self.freesymbol
                     self.board[i][bomb.prevY + 1] = self.freesymbol
 
             for i in range(bomb.prevX, bomb.prevX + 4):
-                if(self.board[i][bomb.prevY - 2] != "#"):
+                if self.board[i][bomb.prevY - 2] != "#":
                     self.board[i][bomb.prevY - 2] = self.freesymbol
                     self.board[i][bomb.prevY - 1] = self.freesymbol
-                if(self.board[i][bomb.prevY + 2] != "#"):
+                if self.board[i][bomb.prevY + 2] != "#":
                     self.board[i][bomb.prevY + 2] = self.freesymbol
                     self.board[i][bomb.prevY + 3] = self.freesymbol
 

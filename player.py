@@ -34,8 +34,7 @@ class Villan(Hero):
         while (overlap):
             self.position_x = random.randrange(16, board.length - 4, 4)
             self.position_y = random.randrange(10, board.breadth - 3, 2)
-            if (board.board[self.position_x]
-                    [self.position_y] == board.freesymbol):
+            if board.board[self.position_x][self.position_y] == board.freesymbol:
                 overlap = 0
         self.uppershape = ["^", "O", "O", "^"]
         self.lowershape = [" ", "}", "{", " "]
@@ -54,29 +53,28 @@ class Villan(Hero):
         motion = random.randrange(0, 4)
         count = 0
         while (overlap):
-            if(motion == 0):
+            if motion == 0:
                 check_y = self.position_y - 2
                 check_x = self.position_x
-            if(motion == 1):
+            if motion == 1:
                 check_y = self.position_y + 2
                 check_x = self.position_x
-            if(motion == 2):
+            if motion == 2:
                 check_y = self.position_y
                 check_x = self.position_x - 4
-            if(motion == 3):
+            if motion == 3:
                 check_y = self.position_y
                 check_x = self.position_x + 4
-            if (board.board[check_x][check_y] ==
-                    board.freesymbol or board.board[check_x][check_y] == "["):
+            if board.board[check_x][check_y] == board.freesymbol or board.board[check_x][check_y] == "[":
                 overlap = 0
                 self.clr(board)
                 self.position_x = check_x
                 self.position_y = check_y
-                if(self.position_x == hero.position_x and self.position_y == hero.position_y):
+                if self.position_x == hero.position_x and self.position_y == hero.position_y:
                     hero.kill(board)
             motion = (motion + 1) % 4
             count += 4
-            if (count > 5):
+            if count > 5:
                 break
 
         board.playerDraw(self)
