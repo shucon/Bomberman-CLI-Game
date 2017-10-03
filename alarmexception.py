@@ -1,6 +1,10 @@
 from __future__ import print_function
-import signal,copy,sys,time
+import signal
+import copy
+import sys
+import time
 from random import randint
+
 
 class AlarmException(Exception):
     pass
