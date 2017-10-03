@@ -53,43 +53,43 @@ def main():
             brick.append(Brick())
             brick[i].fabricate(board_obj, wall)
 
-        for i in range(bomb._villan_cnt):
+        for i in range(bomb.villan_cnt):
             villan.append(Villan(board_obj, brick, wall))
 
-        while(hero._lives and bomb._villan_cnt):
+        while(hero.lives and bomb.villan_cnt):
 
             move = input_to()
             controls(move, hero, board_obj, bomb)
             t1 = time.time()
             if(t1 - t0 > 1):
                 t0 = time.time()
-                for i in range(bomb._villan_cnt):
+                for i in range(bomb.villan_cnt):
                     villan[i].motion(board_obj, bomb, hero)
             board_obj.bombDraw(hero, bomb, villan)
             t2 = time.time()
-            if(t2 - bomb._plant_time > 1):
-                bomb._plant_time = time.time()
-                if(bomb._position_x != -1):
-                    bomb._time -= 1
-                    bomb._uppershape = [
-                        bomb._boundary, bomb._time, bomb._time, bomb._boundary]
-                    bomb._lowershape = [
-                        bomb._boundary, bomb._time, bomb._time, bomb._boundary]
-            if(bomb._time == -1):
+            if(t2 - bomb.plant_time > 1):
+                bomb.plant_time = time.time()
+                if(bomb.position_x != -1):
+                    bomb.time -= 1
+                    bomb.uppershape = [
+                        bomb.boundary, bomb.time, bomb.time, bomb.boundary]
+                    bomb.lowershape = [
+                        bomb.boundary, bomb.time, bomb.time, bomb.boundary]
+            if(bomb.time == -1):
                 bomb.blast(board_obj, hero, villan)
                 blast = 1
             board_obj.playerDraw(hero)
             board_obj.draw()
-            total_score = score + hero._score
+            total_score = score + hero.score
             print(
                 "Score: ",
                 total_score,
                 "  Lives: ",
-                hero._lives,
+                hero.lives,
                 "  Level: ",
                 level)
         level += 1
-        score += hero._score
+        score += hero.score
 
 
 if __name__ == '__main__':

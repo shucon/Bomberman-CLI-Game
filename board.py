@@ -7,99 +7,99 @@ class Board():
     """Manage and print game"""
 
     def __init__(self):
-        self._breadth = 34
-        self._length = 76
-        self._board = []
-        self._freesymbol = " "
-        for i in range(self._length):
-            self._board.append([])
-            for j in range(self._breadth):
-                if i == 0 or i == 1 or i == 2 or i == 3 or i == self._length - \
-                        3 or i == self._length - 4 or i == self._length - 2 or i == self._length - 1:
-                    self._board[i].append("#")
+        self.breadth = 34
+        self.length = 76
+        self.board = []
+        self.freesymbol = " "
+        for i in range(self.length):
+            self.board.append([])
+            for j in range(self.breadth):
+                if i == 0 or i == 1 or i == 2 or i == 3 or i == self.length - \
+                        3 or i == self.length - 4 or i == self.length - 2 or i == self.length - 1:
+                    self.board[i].append("#")
                 else:
-                    if j == 0 or j == 1 or j == self._breadth - 2 or j == self._breadth - 1:
-                        self._board[i].append("#")
+                    if j == 0 or j == 1 or j == self.breadth - 2 or j == self.breadth - 1:
+                        self.board[i].append("#")
                     else:
-                        self._board[i].append(self._freesymbol)
+                        self.board[i].append(self.freesymbol)
 
     def draw(self):
-        for j in range(self._breadth):
+        for j in range(self.breadth):
             print()
-            for i in range(self._length):
-                if(self._board[i][j] == "/"):
+            for i in range(self.length):
+                if(self.board[i][j] == "/"):
                     print(
                         colored(
-                            self._board[i][j],
+                            self.board[i][j],
                             'yellow',
                             attrs=['bold']),
                         end='')
-                elif(self._board[i][j] == "[" or self._board[i][j] == "]" or self._board[i][j] == "^"):
+                elif(self.board[i][j] == "[" or self.board[i][j] == "]" or self.board[i][j] == "^"):
                     print(
                         colored(
-                            self._board[i][j],
+                            self.board[i][j],
                             'cyan',
                             attrs=['bold']),
                         end='')
-                elif(self._board[i][j] == "O" or self._board[i][j] == "}" or self._board[i][j] == "{"):
+                elif(self.board[i][j] == "O" or self.board[i][j] == "}" or self.board[i][j] == "{"):
                     print(
                         colored(
-                            self._board[i][j],
+                            self.board[i][j],
                             'magenta',
                             attrs=['bold']),
                         end='')
-                elif(self._board[i][j] == "0" or self._board[i][j] == "1" or self._board[i][j] == "2" or self._board[i][j] == "3" or self._board[i][j] == "|"):
+                elif(self.board[i][j] == "0" or self.board[i][j] == "1" or self.board[i][j] == "2" or self.board[i][j] == "3" or self.board[i][j] == "|"):
                     print(
                         colored(
-                            self._board[i][j],
+                            self.board[i][j],
                             'red',
                             attrs=['bold']),
                         end='')
                 else:
-                    print(self._board[i][j], end='')
+                    print(self.board[i][j], end='')
         print()
 
     def random_wall(self):
-        x = random.randrange(2, self._length - 3)
-        y = random.randrange(2, self._breadth - 3)
+        x = random.randrange(2, self.length - 3)
+        y = random.randrange(2, self.breadth - 3)
 
     def playerDraw(self, player):
         for i in range(4):
-            self._board[player._position_x +
-                        i][player._position_y] = player._uppershape[i]
+            self.board[player.position_x +
+                        i][player.position_y] = player.uppershape[i]
         for i in range(4):
-            self._board[player._position_x +
-                        i][player._position_y +
-                           1] = player._lowershape[i]
+            self.board[player.position_x +
+                        i][player.position_y +
+                           1] = player.lowershape[i]
 
     def bombDraw(self, player, bomb, vill):
-        if(bomb._position_x != -1 and (player._position_x != bomb._position_x or player._position_y != bomb._position_y) and self._board[bomb._position_x][bomb._position_y] != vill[0]._uppershape[0]):
+        if(bomb.position_x != -1 and (player.position_x != bomb.position_x or player.position_y != bomb.position_y) and self.board[bomb.position_x][bomb.position_y] != vill[0].uppershape[0]):
             for i in range(4):
-                self._board[bomb._position_x +
-                            i][bomb._position_y] = bomb._uppershape[i]
-                self._board[bomb._position_x +
-                            i][bomb._position_y +
-                               1] = bomb._lowershape[i]
+                self.board[bomb.position_x +
+                            i][bomb.position_y] = bomb.uppershape[i]
+                self.board[bomb.position_x +
+                            i][bomb.position_y +
+                               1] = bomb.lowershape[i]
 
-        if(bomb._position_x == -1):
+        if(bomb.position_x == -1):
             for i in range(4):
-                self._board[bomb._prevX + i][bomb._prevY] = self._freesymbol
-                self._board[bomb._prevX +
-                            i][bomb._prevY + 1] = self._freesymbol
+                self.board[bomb.prevX + i][bomb.prevY] = self.freesymbol
+                self.board[bomb.prevX +
+                            i][bomb.prevY + 1] = self.freesymbol
 
             # Restore blast shape
-            for i in range(bomb._prevX - 4, bomb._prevX + 8):
-                if(self._board[i][bomb._prevY] != "#"):
-                    self._board[i][bomb._prevY] = self._freesymbol
-                    self._board[i][bomb._prevY + 1] = self._freesymbol
+            for i in range(bomb.prevX - 4, bomb.prevX + 8):
+                if(self.board[i][bomb.prevY] != "#"):
+                    self.board[i][bomb.prevY] = self.freesymbol
+                    self.board[i][bomb.prevY + 1] = self.freesymbol
 
-            for i in range(bomb._prevX, bomb._prevX + 4):
-                if(self._board[i][bomb._prevY - 2] != "#"):
-                    self._board[i][bomb._prevY - 2] = self._freesymbol
-                    self._board[i][bomb._prevY - 1] = self._freesymbol
-                if(self._board[i][bomb._prevY + 2] != "#"):
-                    self._board[i][bomb._prevY + 2] = self._freesymbol
-                    self._board[i][bomb._prevY + 3] = self._freesymbol
+            for i in range(bomb.prevX, bomb.prevX + 4):
+                if(self.board[i][bomb.prevY - 2] != "#"):
+                    self.board[i][bomb.prevY - 2] = self.freesymbol
+                    self.board[i][bomb.prevY - 1] = self.freesymbol
+                if(self.board[i][bomb.prevY + 2] != "#"):
+                    self.board[i][bomb.prevY + 2] = self.freesymbol
+                    self.board[i][bomb.prevY + 3] = self.freesymbol
 
-            bomb._prevX = -1
-            bomb._prevY = -1
+            bomb.prevX = -1
+            bomb.prevY = -1
