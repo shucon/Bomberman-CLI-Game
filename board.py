@@ -65,23 +65,23 @@ class Board():
 
     def playerDraw(self, player):
         for i in range(4):
-            self._board[player._positionX +
-                        i][player._positionY] = player._upperShape[i]
+            self._board[player._position_x +
+                        i][player._position_y] = player._uppershape[i]
         for i in range(4):
-            self._board[player._positionX +
-                        i][player._positionY +
-                           1] = player._lowerShape[i]
+            self._board[player._position_x +
+                        i][player._position_y +
+                           1] = player._lowershape[i]
 
     def bombDraw(self, player, bomb, vill):
-        if(bomb._positionX != -1 and (player._positionX != bomb._positionX or player._positionY != bomb._positionY) and self._board[bomb._positionX][bomb._positionY] != vill[0]._upperShape[0]):
+        if(bomb._position_x != -1 and (player._position_x != bomb._position_x or player._position_y != bomb._position_y) and self._board[bomb._position_x][bomb._position_y] != vill[0]._uppershape[0]):
             for i in range(4):
-                self._board[bomb._positionX +
-                            i][bomb._positionY] = bomb._upperShape[i]
-                self._board[bomb._positionX +
-                            i][bomb._positionY +
-                               1] = bomb._lowerShape[i]
+                self._board[bomb._position_x +
+                            i][bomb._position_y] = bomb._uppershape[i]
+                self._board[bomb._position_x +
+                            i][bomb._position_y +
+                               1] = bomb._lowershape[i]
 
-        if(bomb._positionX == -1):
+        if(bomb._position_x == -1):
             for i in range(4):
                 self._board[bomb._prevX + i][bomb._prevY] = self._freesymbol
                 self._board[bomb._prevX +

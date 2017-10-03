@@ -42,11 +42,11 @@ class Brick(Wall):
 
         overlap = 1
         while (overlap):
-            self._positionX = random.randrange(12, Board._length - 4, 4)
-            self._positionY = random.randrange(6, Board._breadth - 3, 2)
-            if (Board._board[self._positionX][self._positionY] !=
-                    wall.symbol and Board._board[self._positionX][self._positionY] != self.symbol):
+            self._position_x = random.randrange(12, Board._length - 4, 4)
+            self._position_y = random.randrange(6, Board._breadth - 3, 2)
+            if (Board._board[self._position_x][self._position_y] !=
+                    wall.symbol and Board._board[self._position_x][self._position_y] != self.symbol):
                 overlap = 0
-        for i in range(self._positionX, self._positionX + 4):
-            for j in range(self._positionY, self._positionY + 2):
+        for i in range(self._position_x, self._position_x + 4):
+            for j in range(self._position_y, self._position_y + 2):
                 Board._board[i][j] = self.symbol

@@ -5,24 +5,24 @@ class Hero():
     """docstring for Hero"""
 
     def __init__(self):
-        self._positionX = 4
-        self._positionY = 2
-        self._upperShape = ["[", "^", "^", "]"]
-        self._lowerShape = [" ", "]", "[", " "]
+        self._position_x = 4
+        self._position_y = 2
+        self._uppershape = ["[", "^", "^", "]"]
+        self._lowershape = [" ", "]", "[", " "]
         self._lives = 3
         self._score = 0
 
     def clr(self, Board):
         for i in range(4):
-            Board._board[self._positionX + i][self._positionY] = " "
+            Board._board[self._position_x + i][self._position_y] = " "
         for i in range(4):
-            Board._board[self._positionX + i][self._positionY + 1] = " "
+            Board._board[self._position_x + i][self._position_y + 1] = " "
 
     def kill(self, board):
         self.clr(board)
         self._lives -= 1
-        self._positionX = 4
-        self._positionY = 2
+        self._position_x = 4
+        self._position_y = 2
 
 
 class Villan(Hero):
@@ -32,13 +32,13 @@ class Villan(Hero):
         super(Villan, self).__init__()
         overlap = 1
         while (overlap):
-            self._positionX = random.randrange(16, board._length - 4, 4)
-            self._positionY = random.randrange(10, board._breadth - 3, 2)
-            if (board._board[self._positionX]
-                    [self._positionY] == board._freesymbol):
+            self._position_x = random.randrange(16, board._length - 4, 4)
+            self._position_y = random.randrange(10, board._breadth - 3, 2)
+            if (board._board[self._position_x]
+                    [self._position_y] == board._freesymbol):
                 overlap = 0
-        self._upperShape = ["^", "O", "O", "^"]
-        self._lowerShape = [" ", "}", "{", " "]
+        self._uppershape = ["^", "O", "O", "^"]
+        self._lowershape = [" ", "}", "{", " "]
         self._status = 1  # 1 -> Life   0 -> Death
 
     def kill(self, board, hero):
@@ -55,24 +55,24 @@ class Villan(Hero):
         count = 0
         while (overlap):
             if(motion == 0):
-                checkY = self._positionY - 2
-                checkX = self._positionX
+                check_y = self._position_y - 2
+                check_x = self._position_x
             if(motion == 1):
-                checkY = self._positionY + 2
-                checkX = self._positionX
+                check_y = self._position_y + 2
+                check_x = self._position_x
             if(motion == 2):
-                checkY = self._positionY
-                checkX = self._positionX - 4
+                check_y = self._position_y
+                check_x = self._position_x - 4
             if(motion == 3):
-                checkY = self._positionY
-                checkX = self._positionX + 4
-            if (board._board[checkX][checkY] ==
-                    board._freesymbol or board._board[checkX][checkY] == "["):
+                check_y = self._position_y
+                check_x = self._position_x + 4
+            if (board._board[check_x][check_y] ==
+                    board._freesymbol or board._board[check_x][check_y] == "["):
                 overlap = 0
                 self.clr(board)
-                self._positionX = checkX
-                self._positionY = checkY
-                if(self._positionX == hero._positionX and self._positionY == hero._positionY):
+                self._position_x = check_x
+                self._position_y = check_y
+                if(self._position_x == hero._position_x and self._position_y == hero._position_y):
                     hero.kill(board)
             motion = (motion + 1) % 4
             count += 4

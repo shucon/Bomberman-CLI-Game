@@ -69,11 +69,11 @@ def main():
             t2 = time.time()
             if(t2 - bomb._plant_time > 1):
                 bomb._plant_time = time.time()
-                if(bomb._positionX != -1):
+                if(bomb._position_x != -1):
                     bomb._time -= 1
-                    bomb._upperShape = [
+                    bomb._uppershape = [
                         bomb._boundary, bomb._time, bomb._time, bomb._boundary]
-                    bomb._lowerShape = [
+                    bomb._lowershape = [
                         bomb._boundary, bomb._time, bomb._time, bomb._boundary]
             if(bomb._time == -1):
                 bomb.blast(board_obj, hero, villan)
