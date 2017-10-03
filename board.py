@@ -83,23 +83,23 @@ class Board():
 
         if bomb.position_x == -1:
             for i in range(4):
-                self.board[bomb.prevX + i][bomb.prevY] = self.freesymbol
-                self.board[bomb.prevX +
-                            i][bomb.prevY + 1] = self.freesymbol
+                self.board[bomb.prev_x + i][bomb.prev_y] = self.freesymbol
+                self.board[bomb.prev_x +
+                            i][bomb.prev_y + 1] = self.freesymbol
 
             # Restore blast shape
-            for i in range(bomb.prevX - 4, bomb.prevX + 8):
-                if self.board[i][bomb.prevY] != "#":
-                    self.board[i][bomb.prevY] = self.freesymbol
-                    self.board[i][bomb.prevY + 1] = self.freesymbol
+            for i in range(bomb.prev_x - 4, bomb.prev_x + 8):
+                if self.board[i][bomb.prev_y] != "#":
+                    self.board[i][bomb.prev_y] = self.freesymbol
+                    self.board[i][bomb.prev_y + 1] = self.freesymbol
 
-            for i in range(bomb.prevX, bomb.prevX + 4):
-                if self.board[i][bomb.prevY - 2] != "#":
-                    self.board[i][bomb.prevY - 2] = self.freesymbol
-                    self.board[i][bomb.prevY - 1] = self.freesymbol
-                if self.board[i][bomb.prevY + 2] != "#":
-                    self.board[i][bomb.prevY + 2] = self.freesymbol
-                    self.board[i][bomb.prevY + 3] = self.freesymbol
+            for i in range(bomb.prev_x, bomb.prev_x + 4):
+                if self.board[i][bomb.prev_y - 2] != "#":
+                    self.board[i][bomb.prev_y - 2] = self.freesymbol
+                    self.board[i][bomb.prev_y - 1] = self.freesymbol
+                if self.board[i][bomb.prev_y + 2] != "#":
+                    self.board[i][bomb.prev_y + 2] = self.freesymbol
+                    self.board[i][bomb.prev_y + 3] = self.freesymbol
 
-            bomb.prevX = -1
-            bomb.prevY = -1
+            bomb.prev_x = -1
+            bomb.prev_y = -1

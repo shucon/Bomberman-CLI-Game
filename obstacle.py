@@ -41,7 +41,7 @@ class Brick(Wall):
     def fabricate(self, Board, wall):
 
         overlap = 1
-        while (overlap):
+        while overlap:
             self.position_x = random.randrange(12, Board.length - 4, 4)
             self.position_y = random.randrange(6, Board.breadth - 3, 2)
             if Board.board[self.position_x][self.position_y] != wall.symbol and Board.board[self.position_x][self.position_y] != self.symbol:

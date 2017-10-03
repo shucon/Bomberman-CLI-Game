@@ -31,7 +31,7 @@ class Villan(Hero):
     def __init__(self, board, brick, wall):
         super(Villan, self).__init__()
         overlap = 1
-        while (overlap):
+        while overlap:
             self.position_x = random.randrange(16, board.length - 4, 4)
             self.position_y = random.randrange(10, board.breadth - 3, 2)
             if board.board[self.position_x][self.position_y] == board.freesymbol:
@@ -52,7 +52,7 @@ class Villan(Hero):
         overlap = 1
         motion = random.randrange(0, 4)
         count = 0
-        while (overlap):
+        while overlap:
             if motion == 0:
                 check_y = self.position_y - 2
                 check_x = self.position_x

@@ -26,7 +26,7 @@ def input_to(timeout=1):
         text = getch()
         signal.alarm(0)
         t1 = time.time()
-        while (t1 - t0 < 0.5):
+        while t1 - t0 < 0.5:
             t1 = time.time()
         return text
     except AlarmException:
@@ -40,7 +40,7 @@ def main():
     level = 1
     score = 0
     t0 = time.time()
-    while(1):
+    while 1:
         villan = []
         hero = Hero()
         board_obj = Board()
@@ -56,7 +56,7 @@ def main():
         for i in range(bomb.villan_cnt):
             villan.append(Villan(board_obj, brick, wall))
 
-        while(hero.lives and bomb.villan_cnt):
+        while hero.lives and bomb.villan_cnt:
 
             move = input_to()
             controls(move, hero, board_obj, bomb)
